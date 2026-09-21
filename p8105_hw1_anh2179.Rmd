@@ -1,7 +1,7 @@
 ---
 title: "p8105_hw1_anh2179"
 author: "Amitra Hoq"
-output: html_document
+output: "output=github_document"
 date: "2026-09-21"
 ---
 

@@ -390,6 +390,56 @@ of values or so.</p>
 ## (`geom_point()`).</code></pre>
 <div id="problem-2" class="section level2">
 <h2>Problem 2</h2>
+<pre class="r"><code>set.seed(123)
+
+problem2_df = tibble(
+  random_sample = rnorm(10),
+  logical_vector = random_sample &gt; 0,
+  character_vector = c(
+    &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;,
+    &quot;f&quot;, &quot;g&quot;, &quot;h&quot;, &quot;i&quot;, &quot;j&quot;
+  ),
+  factor_vector = factor(
+    c(
+      &quot;low&quot;, &quot;medium&quot;, &quot;high&quot;, &quot;low&quot;, &quot;medium&quot;,
+      &quot;high&quot;, &quot;low&quot;, &quot;medium&quot;, &quot;high&quot;, &quot;low&quot;
+    )
+  )
+)
+
+problem2_df</code></pre>
+<pre><code>## # A tibble: 10 × 4
+##    random_sample logical_vector character_vector factor_vector
+##            &lt;dbl&gt; &lt;lgl&gt;          &lt;chr&gt;            &lt;fct&gt;        
+##  1       -0.560  FALSE          a                low          
+##  2       -0.230  FALSE          b                medium       
+##  3        1.56   TRUE           c                high         
+##  4        0.0705 TRUE           d                low          
+##  5        0.129  TRUE           e                medium       
+##  6        1.72   TRUE           f                high         
+##  7        0.461  TRUE           g                low          
+##  8       -1.27   FALSE          h                medium       
+##  9       -0.687  FALSE          i                high         
+## 10       -0.446  FALSE          j                low</code></pre>
+<pre class="r"><code>mean(pull(problem2_df, random_sample))</code></pre>
+<pre><code>## [1] 0.07462564</code></pre>
+<pre class="r"><code>mean(pull(problem2_df, logical_vector))</code></pre>
+<pre><code>## [1] 0.5</code></pre>
+<pre class="r"><code>mean(pull(problem2_df, character_vector))</code></pre>
+<pre><code>## Warning in mean.default(pull(problem2_df, character_vector)): argument is not
+## numeric or logical: returning NA</code></pre>
+<pre><code>## [1] NA</code></pre>
+<pre class="r"><code>mean(pull(problem2_df, factor_vector))</code></pre>
+<pre><code>## Warning in mean.default(pull(problem2_df, factor_vector)): argument is not
+## numeric or logical: returning NA</code></pre>
+<pre><code>## [1] NA</code></pre>
+<pre class="r"><code>as.numeric(pull(problem2_df, logical_vector))</code></pre>
+<pre><code>##  [1] 0 0 1 1 1 1 1 0 0 0</code></pre>
+<pre class="r"><code>as.numeric(pull(problem2_df, character_vector))</code></pre>
+<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<pre><code>##  [1] NA NA NA NA NA NA NA NA NA NA</code></pre>
+<pre class="r"><code>as.numeric(pull(problem2_df, factor_vector))</code></pre>
+<pre><code>##  [1] 2 3 1 2 3 1 2 3 1 2</code></pre>
 </div>
 </div>
 

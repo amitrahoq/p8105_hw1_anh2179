@@ -9,13 +9,25 @@ date: "2026-09-21"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+
 ## Problem 1 
 
-
-
 ```{r}
+data("penguins", package = "palmerpenguins")
+library(ggplot2)
 
+penguin_plot = ggplot(
+  penguins,
+  aes(
+    x = bill_length_mm,
+    y = flipper_length_mm,
+    color = species
+  )
+) +
+  geom_point()
 
+penguin_plot
 
 ```
 

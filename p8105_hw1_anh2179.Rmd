@@ -33,10 +33,10 @@ penguin_plot
 
 ## Problem 2
 
-You can also embed plots, for example:
+
 
 ```{r pressure, echo=FALSE}
-plot(pressure)
+
 ```
 
 

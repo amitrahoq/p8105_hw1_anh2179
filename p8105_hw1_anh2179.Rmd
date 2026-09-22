@@ -5,9 +5,9 @@ output: "github_document"
 date: "2026-09-21"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r, message=FALSE}
 library(tidyverse)
+library(ggplot2)
 ```
 
 
@@ -16,31 +16,19 @@ library(tidyverse)
 
 In order to view the data set, I loaded penguins and decided to view the package. They measure the `species` and `islands` of different penguins, in addition to their `bill length` and `depth` (in millimeters)measurements, `flipper size` (in millimeters), `body mass` in grams, `sex` and `year` recorded. I then decided to create a tibble in order to visualize all of different names and values of the data set. N row refers to the amount of penguins measured, which was 344, ncol refers to the amount of conditions measured, and mean of the flipper length is the value listed below. I headed the tibble in order to show an example of the first set of values or so. 
 
-```{r pressure, echo=FALSE}
+```{r}
 data("penguins", package = "palmerpenguins")
-library(ggplot2)
 
-
-penguins_df = tibble(
-  species = penguins$species,
-  island = penguins$island,
-  bill_length_mm = penguins$bill_length_mm,
-  bill_depth_mm = penguins$bill_depth_mm,
-  flipper_length_mm = penguins$flipper_length_mm,
-  body_mass_g = penguins$body_mass_g,
-  sex = penguins$sex,
-  year = penguins$year
-)
 
 head(penguins)
-nrow(penguins_df)
-ncol(penguins_df)
-mean(penguins_df$flipper_length_mm, na.rm = TRUE)
+nrow(penguins)
+ncol(penguins)
+mean(penguins$flipper_length_mm, na.rm = TRUE)
 
 penguin_plot = ggplot( penguins, aes( x = bill_length_mm, y = flipper_length_mm,color = species)) + geom_point()
 
 penguin_plot
-ggsave("penguin_scatterplot.png", plot = penguin_plot)
+ggsave("penguin_scatterplot.pdf", height=4, width=6)
 
 ```
 
@@ -49,9 +37,8 @@ ggsave("penguin_scatterplot.png", plot = penguin_plot)
 I created a tibble containing four different variable types: a random sample of 10 values from a standard Normal distribution, a logical variable indicating whether each value was greater than zero, a character variable of length 10, and a factor variable with three levels. I then used pull() to extract each variable from the tibble and attempted to calculate its mean.
 
 ```{r}
-set.seed(123)
 
-problem2_df = tibble( random_sample = rnorm(10), logical_vector = random_sample > 0,
+problem2_df = tibble( number_vector = rnorm(10), logical_vector = number_vector > 0,
   character_vector = c(
     "a", "b", "c", "d", "e", "f", "g", "h", "i", "j"
   ),
@@ -68,7 +55,7 @@ The mean worked for the numeric variable, as expected. It also worked for the lo
 
 ```{r}
 
-mean(pull(problem2_df, random_sample))
+mean(pull(problem2_df, number_vector ))
 
 mean(pull(problem2_df, logical_vector))
 
@@ -77,9 +64,9 @@ mean(pull(problem2_df, character_vector))
 mean(pull(problem2_df, factor_vector))
 
 ```
-I then applied as.numeric() to the logical, character, and factor variables to examine how R coerces different variable types. The logical variable was converted to 1s and 0s, which explains why its mean could be calculated. The character variable could not be meaningfully converted to numeric values and was therefore converted to NA. The factor variable was converted to integer codes corresponding to its underlying factor levels. Although these codes are numeric, they represent categories rather than actual quantitative measurements, so calculating their mean would not have a meaningful interpretation. These results demonstrate how the underlying variable type determines whether numerical operations such as taking the mean are appropriate.
+I then applied as.numeric() to the logical, character, and factor variable in order to determine how R coerces different variable types. The logical variable was converted to 1s and 0s, which explains why its mean could be calculated. The character variable could not be meaningfully converted to numeric values and therefore converted to NA. The factor variable was able to be converted to integer codes corresponding to the factor levels. Although these codes are numeric, they represent categories rather than actual quantitative measurements, so calculating their mean would not have a meaningful interpretation.
 
-```{r}
+```{r, results='hide'}
 as.numeric(pull(problem2_df, logical_vector))
 
 as.numeric(pull(problem2_df, character_vector))

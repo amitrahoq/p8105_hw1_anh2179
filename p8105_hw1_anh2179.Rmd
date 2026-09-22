@@ -28,7 +28,10 @@ penguin_plot = ggplot(
   geom_point()
 
 penguin_plot
-
+ggsave(
+  "penguin_scatterplot.png",
+  plot = penguin_plot
+)
 ```
 
 ## Problem 2

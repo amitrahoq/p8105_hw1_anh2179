@@ -14,7 +14,7 @@ library(ggplot2)
 
 # Problem 1 
 
-In order to view the data set, I loaded penguins and decided to view the package. They measure the `species` and `islands` of different penguins, in addition to their `bill length` and `depth` (in millimeters)measurements, `flipper size` (in millimeters), `body mass` in grams, `sex` and `year` recorded. I then decided to create a tibble in order to visualize all of different names and values of the data set. N row refers to the amount of penguins measured, which was 344, ncol refers to the amount of conditions measured, and mean of the flipper length is the value listed below. I headed the tibble in order to show an example of the first set of values or so. 
+In order to view the data set, I loaded penguins and decided to view the package. They measure the `species` and `islands` of different penguins, in addition to their `bill length` and `depth` (in millimeters)measurements, `flipper size` (in millimeters), `body mass` in grams, `sex` and `year` recorded. `n row` refers to the amount of penguins measured, which was 344, `n col` refers to the amount of conditions measured, and `mean of the flipper length` is the value listed below. I headed the data in order to show an example of the first set of values or so. 
 
 ```{r}
 data("penguins", package = "palmerpenguins")

@@ -7,31 +7,41 @@ date: "2026-09-21"
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
 ```
 
 
 
-## Problem 1 
+# Problem 1 
+
+In order to view the data set, I loaded penguins and decided to view the package. They measure the species and islands of different penguins, in addition to their bill length and depth (in millimeters)measurements, flipper size (in millimeters), body mass in grams, sex and year recorded. I then decided to create a tibble in order to visualize all of different names and values of the data set. N row refers to the amount of penguins measured, which was 344, ncol refers to the amount of conditions measured, and mean of the flipper length is the value listed below. I headed the tibble in order to show an example of the first set of values or so. 
 
 ```{r}
 data("penguins", package = "palmerpenguins")
 library(ggplot2)
 
-penguin_plot = ggplot(
-  penguins,
-  aes(
-    x = bill_length_mm,
-    y = flipper_length_mm,
-    color = species
-  )
-) +
-  geom_point()
+
+penguins_df = tibble(
+  species = penguins$species,
+  island = penguins$island,
+  bill_length_mm = penguins$bill_length_mm,
+  bill_depth_mm = penguins$bill_depth_mm,
+  flipper_length_mm = penguins$flipper_length_mm,
+  body_mass_g = penguins$body_mass_g,
+  sex = penguins$sex,
+  year = penguins$year
+)
+
+head(penguins)
+nrow(penguins_df)
+ncol(penguins_df)
+mean(penguins_df$flipper_length_mm, na.rm = TRUE)
+
+penguin_plot = ggplot( penguins, aes( x = bill_length_mm, y = flipper_length_mm,color = species)) + geom_point()
 
 penguin_plot
-ggsave(
-  "penguin_scatterplot.png",
-  plot = penguin_plot
-)
+ggsave("penguin_scatterplot.png", plot = penguin_plot)
+
 ```
 
 ## Problem 2

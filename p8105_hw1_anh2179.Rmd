@@ -64,7 +64,7 @@ mean(pull(problem2_df, character_vector))
 mean(pull(problem2_df, factor_vector))
 
 ```
-I then applied as.numeric() to the logical, character, and factor variable in order to determine how R coerces different variable types. The logical variable was converted to 1s and 0s, which explains why its mean could be calculated. The character variable could not be meaningfully converted to numeric values and therefore converted to NA. The factor variable was able to be converted to integer codes corresponding to the factor levels. Although these codes are numeric, they represent categories rather than actual quantitative measurements, so calculating their mean would not have a meaningful interpretation.
+I then applied `as.numeric()` to the logical, character, and factor variable in order to determine how R coerces different variable types.`logical_vector` was converted to 1s and 0s, which explains why its mean could be calculated. `character_vector`could not be meaningfully converted to numeric values and therefore converted to NA.`factor_vector` was able to be converted to integer codes corresponding to the factor levels. Although these codes are numeric, they represent categories rather than actual quantitative measurements, so calculating their mean would not have a meaningful interpretation.
 
 ```{r, results='hide'}
 as.numeric(pull(problem2_df, logical_vector))

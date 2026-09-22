@@ -44,9 +44,9 @@ ggsave("penguin_scatterplot.png", plot = penguin_plot)
 
 ```
 
-## Problem 2
+# Problem 2
 
-
+I created a tibble containing four different variable types: a random sample of 10 values from a standard Normal distribution, a logical variable indicating whether each value was greater than zero, a character variable of length 10, and a factor variable with three levels. I then used pull() to extract each variable from the tibble and attempted to calculate its mean.
 
 ```{r}
 set.seed(123)
@@ -63,6 +63,9 @@ problem2_df = tibble( random_sample = rnorm(10), logical_vector = random_sample 
 problem2_df
 
 ```
+The mean worked for the numeric variable, as expected. It also worked for the logical variable because R treats TRUE as 1 and FALSE as 0 when performing numerical calculations. As a result, the mean of the logical variable represents the proportion of observations in the random sample that are greater than zero. The mean did not work for either the character or factor variables because these variables contain categorical rather than directly numeric information.
+
+
 ```{r}
 
 mean(pull(problem2_df, random_sample))
@@ -74,6 +77,8 @@ mean(pull(problem2_df, character_vector))
 mean(pull(problem2_df, factor_vector))
 
 ```
+I then applied as.numeric() to the logical, character, and factor variables to examine how R coerces different variable types. The logical variable was converted to 1s and 0s, which explains why its mean could be calculated. The character variable could not be meaningfully converted to numeric values and was therefore converted to NA. The factor variable was converted to integer codes corresponding to its underlying factor levels. Although these codes are numeric, they represent categories rather than actual quantitative measurements, so calculating their mean would not have a meaningful interpretation. These results demonstrate how the underlying variable type determines whether numerical operations such as taking the mean are appropriate.
+
 ```{r}
 as.numeric(pull(problem2_df, logical_vector))
 

@@ -388,25 +388,26 @@ of values or so.</p>
 <pre><code>## Saving 7 x 5 in image</code></pre>
 <pre><code>## Warning: Removed 2 rows containing missing values or values outside the scale range
 ## (`geom_point()`).</code></pre>
-<div id="problem-2" class="section level2">
-<h2>Problem 2</h2>
+</div>
+<div id="problem-2" class="section level1">
+<h1>Problem 2</h1>
+<p>I created a tibble containing four different variable types: a random
+sample of 10 values from a standard Normal distribution, a logical
+variable indicating whether each value was greater than zero, a
+character variable of length 10, and a factor variable with three
+levels. I then used pull() to extract each variable from the tibble and
+attempted to calculate its mean.</p>
 <pre class="r"><code>set.seed(123)
 
-problem2_df = tibble(
-  random_sample = rnorm(10),
-  logical_vector = random_sample &gt; 0,
+problem2_df = tibble( random_sample = rnorm(10), logical_vector = random_sample &gt; 0,
   character_vector = c(
-    &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;,
-    &quot;f&quot;, &quot;g&quot;, &quot;h&quot;, &quot;i&quot;, &quot;j&quot;
+    &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;, &quot;g&quot;, &quot;h&quot;, &quot;i&quot;, &quot;j&quot;
   ),
   factor_vector = factor(
-    c(
-      &quot;low&quot;, &quot;medium&quot;, &quot;high&quot;, &quot;low&quot;, &quot;medium&quot;,
-      &quot;high&quot;, &quot;low&quot;, &quot;medium&quot;, &quot;high&quot;, &quot;low&quot;
+    c(&quot;low&quot;, &quot;medium&quot;, &quot;high&quot;, &quot;low&quot;, &quot;medium&quot;,&quot;high&quot;, &quot;low&quot;, &quot;medium&quot;, &quot;high&quot;, &quot;low&quot;
     )
   )
 )
-
 problem2_df</code></pre>
 <pre><code>## # A tibble: 10 × 4
 ##    random_sample logical_vector character_vector factor_vector
@@ -421,6 +422,13 @@ problem2_df</code></pre>
 ##  8       -1.27   FALSE          h                medium       
 ##  9       -0.687  FALSE          i                high         
 ## 10       -0.446  FALSE          j                low</code></pre>
+<p>The mean worked for the numeric variable, as expected. It also worked
+for the logical variable because R treats TRUE as 1 and FALSE as 0 when
+performing numerical calculations. As a result, the mean of the logical
+variable represents the proportion of observations in the random sample
+that are greater than zero. The mean did not work for either the
+character or factor variables because these variables contain
+categorical rather than directly numeric information.</p>
 <pre class="r"><code>mean(pull(problem2_df, random_sample))</code></pre>
 <pre><code>## [1] 0.07462564</code></pre>
 <pre class="r"><code>mean(pull(problem2_df, logical_vector))</code></pre>
@@ -433,6 +441,17 @@ problem2_df</code></pre>
 <pre><code>## Warning in mean.default(pull(problem2_df, factor_vector)): argument is not
 ## numeric or logical: returning NA</code></pre>
 <pre><code>## [1] NA</code></pre>
+<p>I then applied as.numeric() to the logical, character, and factor
+variables to examine how R coerces different variable types. The logical
+variable was converted to 1s and 0s, which explains why its mean could
+be calculated. The character variable could not be meaningfully
+converted to numeric values and was therefore converted to NA. The
+factor variable was converted to integer codes corresponding to its
+underlying factor levels. Although these codes are numeric, they
+represent categories rather than actual quantitative measurements, so
+calculating their mean would not have a meaningful interpretation. These
+results demonstrate how the underlying variable type determines whether
+numerical operations such as taking the mean are appropriate.</p>
 <pre class="r"><code>as.numeric(pull(problem2_df, logical_vector))</code></pre>
 <pre><code>##  [1] 0 0 1 1 1 1 1 0 0 0</code></pre>
 <pre class="r"><code>as.numeric(pull(problem2_df, character_vector))</code></pre>
@@ -440,7 +459,6 @@ problem2_df</code></pre>
 <pre><code>##  [1] NA NA NA NA NA NA NA NA NA NA</code></pre>
 <pre class="r"><code>as.numeric(pull(problem2_df, factor_vector))</code></pre>
 <pre><code>##  [1] 2 3 1 2 3 1 2 3 1 2</code></pre>
-</div>
 </div>
 
 

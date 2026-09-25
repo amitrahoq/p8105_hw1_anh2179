@@ -7,7 +7,6 @@ date: "2026-09-21"
 
 ```{r, message=FALSE}
 library(tidyverse)
-library(ggplot2)
 ```
 
 
@@ -23,9 +22,11 @@ data("penguins", package = "palmerpenguins")
 head(penguins)
 nrow(penguins)
 ncol(penguins)
-mean(penguins$flipper_length_mm, na.rm = TRUE)
+mean(pull(penguins, flipper_length_mm), na.rm = TRUE)
 
-penguin_plot = ggplot( penguins, aes( x = bill_length_mm, y = flipper_length_mm,color = species)) + geom_point()
+penguin_plot = 
+  ggplot( penguins, aes( x = bill_length_mm, 
+                         y = flipper_length_mm,color = species)) + geom_point()
 
 penguin_plot
 ggsave("penguin_scatterplot.pdf", height=4, width=6)
@@ -38,13 +39,13 @@ I created a tibble containing four different variable types: a random sample of 
 
 ```{r}
 
-problem2_df = tibble( number_vector = rnorm(10), logical_vector = number_vector > 0,
-  character_vector = c(
-    "a", "b", "c", "d", "e", "f", "g", "h", "i", "j"
-  ),
-  factor_vector = factor(
-    c("low", "medium", "high", "low", "medium","high", "low", "medium", "high", "low"
-    )
+problem2_df = 
+  tibble( 
+    number_vector = rnorm(10), 
+    logical_vector = number_vector > 0,
+  character_vector = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
+  factor_vector = factor(c("low", "medium", "high", "low", "medium","high",
+                           "low", "medium", "high", "low")
   )
 )
 problem2_df
